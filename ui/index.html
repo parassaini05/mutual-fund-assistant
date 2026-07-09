@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Fund FAQ Assistant | Facts-Only AI</title>
+    <meta name="description" content="A facts-only, AI-powered mutual fund FAQ assistant to help you find accurate information on top mutual funds.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <span class="logo-text">Mutual Fund Assistant</span>
+                <span class="badge facts-only-badge">FACTS-ONLY</span>
+            </div>
+
+        </header>
+
+        <div class="dashboard">
+            
+            <!-- Main Chat Column -->
+            <main class="main-column">
+                
+                <!-- Hero Intro (hides when chat starts) -->
+                <div class="hero-section" id="welcome-screen">
+                    <h1 class="hero-title">Facts-Only Mutual Fund <br><span class="accent-text">Intelligence</span></h1>
+                    <p class="hero-subtitle">
+                        Navigate the complexity of mutual funds with institutional-grade clarity. Our AI assistant provides objective data, verified source links, and real-time updates—without the noise of investment advice.
+                    </p>
+                </div>
+
+                <!-- Chat History Area -->
+                <div class="chat-history" id="chat-history">
+                    <!-- Dynamic chat messages go here -->
+                </div>
+
+                <!-- Input Area (Fixed to bottom of main column) -->
+                <div class="input-container">
+                    <form class="chat-form" id="chat-form">
+                        <input 
+                            type="text" 
+                            id="chat-input" 
+                            class="chat-input" 
+                            placeholder="Ask about fund expense ratios, historical performance, or portfolio mix..." 
+                            autocomplete="off"
+                            required
+                        />
+                        <button type="submit" class="send-button" id="send-button" aria-label="Send query">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <div class="suggested-queries">
+                        <span class="suggested-label">Suggested:</span>
+                        <a href="#" onclick="submitExample('What is the expense ratio of ICICI Prudential Large Cap fund?'); return false;">Expense ratio of ICICI Large Cap?</a>
+                        <a href="#" onclick="submitExample('Exit load details for HDFC Small Cap Fund?'); return false;">Exit load details?</a>
+                    </div>
+                </div>
+                
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="sidebar">
+                
+                <!-- Disclaimer Box -->
+                <div class="card warning-card">
+                    <div class="card-header warning-header">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                            <path d="M12 8V12"/>
+                            <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                        </svg>
+                        NO INVESTMENT ADVICE
+                    </div>
+                    <div class="card-body">
+                        This assistant is a research-only platform. Information provided is extracted directly from regulatory filings and factsheets. We do not provide financial recommendations, buy/sell calls, or personalized portfolio construction services. Always consult with a certified financial advisor before making investment decisions.
+                    </div>
+                </div>
+
+                <!-- Stats/Funds Box -->
+                <div class="card stats-card">
+                    <div class="card-header">
+                        Supported Funds
+                        <span class="live-badge">Live</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="funds-list">
+                            <li>
+                                <div class="fund-name">ICICI Prudential Large Cap</div>
+                                <div class="fund-cat">Large Cap • Equity</div>
+                            </li>
+                            <li>
+                                <div class="fund-name">Kotak Emerging Equity</div>
+                                <div class="fund-cat">Mid Cap • Equity</div>
+                            </li>
+                            <li>
+                                <div class="fund-name">HDFC Small Cap Fund</div>
+                                <div class="fund-cat">Small Cap • Equity</div>
+                            </li>
+                            <li>
+                                <div class="fund-name">HSBC Midcap Fund</div>
+                                <div class="fund-cat">Mid Cap • Equity</div>
+                            </li>
+                            <li>
+                                <div class="fund-name">Bajaj Finserv Flexi Cap</div>
+                                <div class="fund-cat">Flexi Cap • Equity</div>
+                            </li>
+                        </ul>
+                        <div class="confidence-bar-container">
+                            <div class="confidence-label">Platform Confidence Score</div>
+                            <div class="confidence-track">
+                                <div class="confidence-fill" style="width: 98.4%;"></div>
+                            </div>
+                            <div class="confidence-value">98.4% DATA ACCURACY</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-left">
+                <div class="footer-logo">Mutual Fund Assistant</div>
+                <p>Professional research tool providing real-time data transparency across the mutual fund ecosystem. Not an investment advisory service.</p>
+                <p class="copyright">&copy; 2026 Mutual Fund Assistant. All rights reserved.</p>
+            </div>
+
+        </footer>
+    </div>
+
+    <!-- Template for Loading Message -->
+    <template id="loading-template">
+        <div class="message bot loading">
+            <div class="avatar bot-avatar">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <div class="message-content bot-panel">
+                <div class="typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>

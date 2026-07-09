@@ -261,13 +261,18 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    overflow-y: auto;
 }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
 .card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .card-header {

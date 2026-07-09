@@ -258,10 +258,9 @@ body {
 /* --- Sidebar --- */
 .sidebar {
     width: 340px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: block;
     overflow-y: auto;
+    padding-bottom: 20px;
 }
 .sidebar::-webkit-scrollbar { width: 4px; }
 .sidebar::-webkit-scrollbar-track { background: transparent; }
@@ -272,7 +271,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
-    flex-shrink: 0;
+    margin-bottom: 24px;
 }
 
 .card-header {

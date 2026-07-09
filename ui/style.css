@@ -272,6 +272,8 @@ body {
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 24px;
+    height: auto !important;
+    min-height: max-content !important;
 }
 
 .card-header {

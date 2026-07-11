@@ -26,9 +26,11 @@ gantt
     section Phase 6
     Frontend UI                       :p6, after p5, 3d
     section Phase 7
-    Integration & Testing             :p7, after p6, 3d
+    Scheduler Component               :p7, after p6, 2d
     section Phase 8
-    Review & Documentation            :p8, after p7, 1d
+    Integration & Testing             :p8, after p7, 3d
+    section Phase 9
+    Review & Documentation            :p9, after p8, 1d
 ```
 
 ---
@@ -280,7 +282,25 @@ Response (refusal):
 
 ---
 
-## Phase 7 — Integration Testing & End-to-End Validation
+## Phase 7 — Scheduler Component *(Layer 2)*
+
+**Goal:** Automate the ingestion pipeline to run daily and pull the latest data using GitHub Actions.
+
+### Tasks
+
+| # | Task | Details |
+|---|------|---------|
+| 7.1 | Create GitHub Actions Workflow | Build `.github/workflows/ingestion-scheduler.yml` to trigger `ingest.py` |
+| 7.2 | Setup Cron Trigger | Configure the workflow to run on a daily schedule using `schedule: - cron:` |
+| 7.3 | Configure Environment | Set up secrets (e.g., `GROQ_API_KEY`) and Python environment in the action |
+| 7.4 | Commit Vector Store | Add a step to commit and push the updated FAISS index back to the repository |
+
+### Deliverables
+- `.github/workflows/ingestion-scheduler.yml`
+
+---
+
+## Phase 8 — Integration Testing & End-to-End Validation
 
 **Goal:** Run the full pipeline end-to-end, verify all constraints, and fix any integration issues.
 
@@ -288,13 +308,13 @@ Response (refusal):
 
 | # | Task | Details |
 |---|------|---------|
-| 7.1 | Run end-to-end with factual queries | Test all 5 funds across expense ratio, exit load, SIP, riskometer, benchmark |
-| 7.2 | Test refusal handling | Verify advisory queries are refused with AMFI link |
-| 7.3 | Test PII sanitization | Send queries containing fake PAN/Aadhaar — verify they are stripped |
-| 7.4 | Validate response format | Assert ≤3 sentences, 1 citation, date footer present in all factual responses |
-| 7.5 | Test out-of-scope queries | Queries about funds not in corpus → graceful refusal |
-| 7.6 | Test UI on desktop and mobile | Responsive layout, disclaimer visible, examples clickable |
-| 7.7 | Performance check | Response latency acceptable (<5s for typical query) |
+| 8.1 | Run end-to-end with factual queries | Test all 5 funds across expense ratio, exit load, SIP, riskometer, benchmark |
+| 8.2 | Test refusal handling | Verify advisory queries are refused with AMFI link |
+| 8.3 | Test PII sanitization | Send queries containing fake PAN/Aadhaar — verify they are stripped |
+| 8.4 | Validate response format | Assert ≤3 sentences, 1 citation, date footer present in all factual responses |
+| 8.5 | Test out-of-scope queries | Queries about funds not in corpus → graceful refusal |
+| 8.6 | Test UI on desktop and mobile | Responsive layout, disclaimer visible, examples clickable |
+| 8.7 | Performance check | Response latency acceptable (<5s for typical query) |
 
 ### Test Query Matrix
 
@@ -314,7 +334,7 @@ Response (refusal):
 
 ---
 
-## Phase 8 — Documentation & Final Review
+## Phase 9 — Documentation & Final Review
 
 **Goal:** Finalize all documentation, clean up code, and prepare for delivery.
 
@@ -322,13 +342,13 @@ Response (refusal):
 
 | # | Task | Details |
 |---|------|---------|
-| 8.1 | Complete `README.md` | Setup instructions, env config, how to run ingestion + API + UI |
-| 8.2 | Document selected funds & AMCs | Table of 5 schemes with Groww URLs |
-| 8.3 | Document architecture overview | Link to `architecture.md` |
-| 8.4 | Document known limitations | Data freshness, 5-fund scope, no live NAV |
-| 8.5 | Add disclaimer snippet | `"Facts-only. No investment advice."` in README |
-| 8.6 | Code cleanup | Remove debug prints, add docstrings, enforce consistent naming |
-| 8.7 | Final review against success criteria | Cross-check all 5 success criteria from problem statement |
+| 9.1 | Complete `README.md` | Setup instructions, env config, how to run ingestion + API + UI |
+| 9.2 | Document selected funds & AMCs | Table of 5 schemes with Groww URLs |
+| 9.3 | Document architecture overview | Link to `architecture.md` |
+| 9.4 | Document known limitations | Data freshness, 5-fund scope, no live NAV |
+| 9.5 | Add disclaimer snippet | `"Facts-only. No investment advice."` in README |
+| 9.6 | Code cleanup | Remove debug prints, add docstrings, enforce consistent naming |
+| 9.7 | Final review against success criteria | Cross-check all 5 success criteria from problem statement |
 
 ### Final Success Criteria Checklist
 
@@ -367,6 +387,10 @@ mutual-fund-faq/
 │   ├── llm_client.py
 │   ├── response_validator.py
 │   └── response_formatter.py
+│
+├── .github/
+│   └── workflows/
+│       └── ingestion-scheduler.yml
 │
 ├── api/
 │   ├── main.py
@@ -407,8 +431,9 @@ mutual-fund-faq/
 | **4** | Generation & Refusal | LLM pipeline, validator, formatter, refusal handler |
 | **5** | Backend API | FastAPI `/ask` endpoint wiring the full pipeline |
 | **6** | Frontend UI | Chat UI with disclaimer, examples, response cards |
-| **7** | Integration Testing | End-to-end validation across all query types |
-| **8** | Documentation | README, cleanup, final success criteria review |
+| **7** | Scheduler Component | Automated daily data ingestion trigger |
+| **8** | Integration Testing | End-to-end validation across all query types |
+| **9** | Documentation | README, cleanup, final success criteria review |
 
 ---
 
